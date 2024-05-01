@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import { getItems, addToCart } from '../../services/api';
 import './itemList.css'; // Import CSS file
-import CartSummary from '../Cart/CartSummary'; // Import CartSummary component
 
 const ItemList = () => {
   const [loading, setLoading] = useState(true);
@@ -46,59 +45,56 @@ const ItemList = () => {
   };
 
   return (
-      <div>
-        <div className='card-container'> {/* Add .card-container class here */}
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            <div>
-              <ul className="mystyle-products">
-                {items.map((item) => (
-                  <li className="product" key={item.ID}>
-                    <div>Name: {item.Name}</div>
-                    <div>Price: ${item.Price}</div>
-                    <div>Status: {item.Status}</div>
-                    <div className="quantity-container">
-                      <label htmlFor={`quantity-${item.ID}`}>Quantity:</label>
-                      <button
-                        className="quantity-btn"
-                        onClick={() => {
-                          const input = document.getElementById(`quantity-${item.ID}`);
-                          if (input) {
-                            input.stepDown();
-                          }
-                        }}
-                      >
-                        -
-                      </button>
-                      <input
-                        type="number"
-                        id={`quantity-${item.ID}`}
-                        defaultValue="0"
-                        min="0"
-                      />
-                      <button
-                        className="quantity-btn"
-                        onClick={() => {
-                          const input = document.getElementById(`quantity-${item.ID}`);
-                          if (input) {
-                            input.stepUp();
-                          }
-                        }}
-                      >
-                        +
-                      </button>
-                    </div>
-                    <button onClick={() => handleAddToCart(item.ID)}>Add to Cart</button>
-                  </li>
-                ))}
-              </ul>
-              {!cartEmpty && <button onClick={handleCheckout}>Checkout Now</button>}
-            </div>
-          )}
+    <div className='item-list-container'> {/* Add .item-list-container class here */}
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <div>
+          <ul className="grid-container">
+            {items.map((item) => (
+              <li className="grid-item" key={item.ID}>
+                <div>Name: {item.Name}</div>
+                <div>Price: ${item.Price}</div>
+                <div>Status: {item.Status}</div>
+                <div className="quantity-container">
+                  <label htmlFor={`quantity-${item.ID}`}>Quantity:</label>
+                  <button
+                    className="quantity-btn"
+                    onClick={() => {
+                      const input = document.getElementById(`quantity-${item.ID}`);
+                      if (input) {
+                        input.stepDown();
+                      }
+                    }}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    id={`quantity-${item.ID}`}
+                    defaultValue="0"
+                    min="0"
+                  />
+                  <button
+                    className="quantity-btn"
+                    onClick={() => {
+                      const input = document.getElementById(`quantity-${item.ID}`);
+                      if (input) {
+                        input.stepUp();
+                      }
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+                <button className="add-to-cart-btn" onClick={() => handleAddToCart(item.ID)}>Add to Cart</button>
+              </li>
+            ))}
+          </ul>
+          {!cartEmpty && <button className="checkout-btn" onClick={handleCheckout}>Checkout Now</button>}
         </div>
-        <CartSummary />
-      </div>
+      )}
+    </div>
   );
 };
 
