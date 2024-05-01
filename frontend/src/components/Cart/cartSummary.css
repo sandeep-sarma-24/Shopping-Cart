@@ -1,38 +1,59 @@
-/* cartSummary.css */
+/* itemList.css */
 
-.card-container {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .cart-summary {
-    border: 1px solid #ccc;
-    max-width: 600px; /* Adjust the maximum width as needed */
-    border-radius: 5px;
-    padding: 20px;
-    margin-top: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow for better visualization */
-  }
-  
-  .cart-item {
-    margin-bottom: 10px;
-    border-bottom: 1px solid #eee; /* Add border between cart items */
-    padding-bottom: 10px; /* Add some padding at the bottom of each cart item */
-  }
-  
-  .cart-item:last-child {
-    border-bottom: none; /* Remove border from last cart item */
-  }
-  
-  .cart-item-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Vertically center items */
-    column-gap: 15px; /* Add gap between columns */
-  }
-  
-  .total-price {
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
+.item-list-container {
+  display: flex; /* Change to flex */
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  justify-content: space-between; /* Add space between items */
+  padding: 20px; /* Add padding */
+}
+
+.grid-container {
+  list-style-type: none;
+  padding: 0;
+  display: flex; /* Change to flex */
+  flex-wrap: wrap; /* Allow items to wrap */
+  justify-content: space-between; /* Add space between items */
+  width: 100%; /* Ensure full width */
+}
+
+.grid-item {
+  flex: 0 0 calc(25% - 20px); /* Set item width to 25% with margin */
+  margin-bottom: 20px; /* Add bottom margin */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.quantity-container {
+  margin-top: 10px;
+}
+
+.quantity-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.quantity-btn:hover {
+  background-color: #45a049;
+}
+
+.add-to-cart-btn, .checkout-btn {
+  background-color: #2196F3;
+  color: white;
+  padding: 8px 20px; /* Increase padding */
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px; /* Add margin on top */
+  transition: background-color 0.3s; /* Add transition effect */
+}
+
+.add-to-cart-btn:hover, .checkout-btn:hover {
+  background-color: #0b7dda;
+}
