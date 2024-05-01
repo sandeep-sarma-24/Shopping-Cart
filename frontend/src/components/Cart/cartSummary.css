@@ -1,0 +1,38 @@
+/* cartSummary.css */
+
+.card-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .cart-summary {
+    border: 1px solid #ccc;
+    max-width: 600px; /* Adjust the maximum width as needed */
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow for better visualization */
+  }
+  
+  .cart-item {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee; /* Add border between cart items */
+    padding-bottom: 10px; /* Add some padding at the bottom of each cart item */
+  }
+  
+  .cart-item:last-child {
+    border-bottom: none; /* Remove border from last cart item */
+  }
+  
+  .cart-item-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Vertically center items */
+    column-gap: 15px; /* Add gap between columns */
+  }
+  
+  .total-price {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  

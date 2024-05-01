@@ -1,0 +1,74 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #105469;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+  width: 100%; /* Occupy full width */
+  height: 100vh; /* Occupy full viewport height */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.table {
+  width: 80%; /* Adjust width as needed */
+  border-radius: 0.25em;
+  border-collapse: collapse;
+  margin: 1em;
+  background-color: #4b4a4a; /* Set background color */
+}
+
+.table-header {
+  display: flex;
+  width: 100%;
+  background: #064e30;
+  color: #E2B842; /* Header text color */
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.table-header th {
+  border-bottom: 1px solid #364043;
+  border-right: 1px solid #364043; /* Vertical line between columns */
+  padding: 0.5em 1em;
+  text-align: left;
+  flex: 1; /* Equal width for each header column */
+}
+
+.table-row {
+  display: flex;
+  width: 100%;
+}
+
+.table-row:nth-child(even) {
+  background: #014055; /* Alternate row background color */
+}
+
+.table-data {
+  color: #fff;
+  border-right: 1px solid #364043; /* Vertical line between columns */
+  padding: 0.65em 1em;
+  flex: 1;
+}
+
+.disabled {
+  color: #4F5F64; /* Disabled row text color */
+}
+
+.table-content {
+  padding: 12px 0; /* Adjust padding as needed */
+}
+
+.table-header th:last-child,
+.table-data:last-child {
+  border-right: none; /* Remove vertical line for the last column */
+}

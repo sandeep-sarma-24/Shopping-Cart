@@ -1,0 +1,36 @@
+/* itemList.css */
+
+.card-container {
+  max-width: 260px; /* Adjust the maximum width as needed */
+  margin: 50px 50px; /* Center the card horizontally */
+}
+
+.mystyle-products {
+  list-style-type: none;
+  padding: 0;
+}
+
+.product {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.quantity-container {
+  margin-top: 10px;
+}
+
+.quantity-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.quantity-btn:hover {
+  background-color: #45a049;
+}
