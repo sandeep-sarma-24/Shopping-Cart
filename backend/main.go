@@ -112,6 +112,9 @@ func main() {
         authorized.GET("/orders", listOrders)
         authorized.POST("/carts/items", addToCart)
         authorized.GET("/cart/items", listCartItems)
+        authorized.DELETE("/carts", deleteCart)
+        authorized.DELETE("/carts/items/:itemID", deleteCartItem)
+
     }
 
     // Run the server
@@ -483,4 +486,66 @@ func listCartItems(c *gin.Context) {
     }
 
     c.JSON(http.StatusOK, response)
+}
+
+func deleteCart(c *gin.Context) {
+    userToken := c.Request.Header.Get("Authorization")
+    var user User
+    if err := db.Where("token = ?", userToken).First(&user).Error; err != nil {
+        c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+        return
+    }
+
+    var cart Cart
+    if err := db.Where("user_id = ?", user.ID).First(&cart).Error; err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "User does not have a cart"})
+        return
+    }
+
+    // Delete cart items
+    if err := db.Where("cart_id = ?", cart.ID).Delete(&CartItem{}).Error; err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete cart items"})
+        return
+    }
+
+    // Delete cart
+    if err := db.Delete(&cart).Error; err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete cart"})
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{"message": "Cart deleted successfully"})
+}
+
+func deleteCartItem(c *gin.Context) {
+    userToken := c.Request.Header.Get("Authorization")
+    var user User
+    if err := db.Where("token = ?", userToken).First(&user).Error; err != nil {
+        c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+        return
+    }
+
+    var cart Cart
+    if err := db.Where("user_id = ?", user.ID).First(&cart).Error; err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "User does not have a cart"})
+        return
+    }
+
+    // Parse item ID from request parameters
+    itemID := c.Param("itemID")
+
+    // Check if the item exists in the cart
+    var cartItem CartItem
+    if err := db.Where("cart_id = ? AND item_id = ?", cart.ID, itemID).First(&cartItem).Error; err != nil {
+        c.JSON(http.StatusNotFound, gin.H{"error": "Item not found in cart"})
+        return
+    }
+
+    // Delete the cart item
+    if err := db.Delete(&cartItem).Error; err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete cart item"})
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{"message": "Item deleted from cart successfully"})
 }

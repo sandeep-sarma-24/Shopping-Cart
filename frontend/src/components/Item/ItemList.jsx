@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import { getItems, addToCart } from '../../services/api';
 import './itemList.css'; // Import CSS file
+import CartSummary from '../Cart/Cart_Summary/CartSummary';
+import CartDeleteButton from '../Cart/Cart_Delete/CartDeleteButton';
 
 const ItemList = () => {
   const [loading, setLoading] = useState(true);
@@ -94,6 +96,8 @@ const ItemList = () => {
           {!cartEmpty && <button className="checkout-btn" onClick={handleCheckout}>Checkout Now</button>}
         </div>
       )}
+      <CartSummary/>
+      <CartDeleteButton/>
     </div>
   );
 };

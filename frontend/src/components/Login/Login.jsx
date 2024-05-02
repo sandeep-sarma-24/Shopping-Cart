@@ -18,7 +18,7 @@ const Login = () => {
         localStorage.setItem('authToken', token);
 
         // Redirect to ItemList page upon successful login
-        window.location.href = '/item-list';
+        window.location.href = '/items';
 
       } else {
         setError('Invalid username or password');

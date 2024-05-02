@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './cartSummary.css';
-import { getCartItems } from '../../services/api';
+import { getCartItems } from '../../../services/api';
 
 const CartSummary = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -34,24 +34,34 @@ const CartSummary = () => {
         ) : error ? (
           <p>Error: {error}</p>
         ) : (
-          <div className="cart-items">
-            {cartItems.length > 0 ? (
-              cartItems.map((item) => (
-                <div className="cart-item" key={item.ID}>
-                  <div className="cart-item-details">
-                    <span>Name: {item.Item.Name}</span>
-                    <span>Quantity: {item.Quantity}</span>
-                    <span>Price: ${item.Item.Price}</span>
-                    <span>Total: ${item.Item.Price * item.Quantity}</span>
-                  </div>
+          <>
+            <div className="cart-items">
+              <div className="cart-item_cart-header">
+                <div className="cart-item-details">
+                  <span>Name</span>
+                  <span>Quantity</span>
+                  <span>Item Price</span>
+                  <span>Total Price</span>
                 </div>
-              ))
-            ) : (
-              <p>No items in the cart.</p>
-            )}
-          </div>
+              </div>
+              {cartItems.length > 0 ? (
+                cartItems.map((item) => (
+                  <div className="cart-item" key={item.ID}>
+                    <div className="cart-item-details">
+                      <span>{item.Item.Name}</span>
+                      <span>{item.Quantity}</span>
+                      <span>${item.Item.Price}</span>
+                      <span>${item.Item.Price * item.Quantity}</span>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>No items in the cart.</p>
+              )}
+            </div>
+            <div className="total-price">Total Price: ${totalPrice.toFixed(2)}</div>
+          </>
         )}
-        <div className="total-price">Total Price: ${totalPrice.toFixed(2)}</div>
       </div>
     </div>
   );
