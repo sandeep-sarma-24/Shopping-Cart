@@ -37,6 +37,8 @@ const CartSummary = () => {
     }
   };
 
+// make a change
+
   return (
     <div className='card-container'>
       <div className="cart-summary">
