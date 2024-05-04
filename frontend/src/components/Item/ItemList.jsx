@@ -1,10 +1,8 @@
-// ItemList.jsx
 import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import { getItems, addToCart } from '../../services/api';
 import './itemList.css'; // Import CSS file
 import CartSummary from '../Cart/Cart_Summary/CartSummary';
-import CartDeleteButton from '../Cart/Cart_Delete/CartDeleteButton';
 
 const ItemList = () => {
   const [loading, setLoading] = useState(true);
@@ -36,6 +34,7 @@ const ItemList = () => {
       await addToCart(itemId, quantity);
       console.log('Item added to cart successfully');
       setCartEmpty(false);
+      refreshCartSummary(); // Call function to refresh CartSummary
     } catch (error) {
       console.error('Error adding item to cart:', error);
     }
@@ -44,6 +43,11 @@ const ItemList = () => {
   const handleCheckout = () => {
     console.log('Checkout Now clicked');
     // Add logic for handling checkout here
+  };
+
+  const refreshCartSummary = () => {
+    // Logic to refresh cart summary
+    console.log('Refreshing Cart Summary...');
   };
 
   return (
@@ -96,8 +100,7 @@ const ItemList = () => {
           {!cartEmpty && <button className="checkout-btn" onClick={handleCheckout}>Checkout Now</button>}
         </div>
       )}
-      <CartSummary/>
-      <CartDeleteButton/>
+      <CartSummary />
     </div>
   );
 };

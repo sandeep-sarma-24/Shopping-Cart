@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { deleteCart } from '../../../services/api';
 import './CartDeleteButton.css'; // Import the CSS file for the button styling
 
-const CartDeleteButton = () => {
+const CartDeleteButton = ({ fetchCartItems, setError }) => {
   const [loading, setLoading] = useState(false);
 
   const handleDeleteCart = async () => {
@@ -11,11 +11,15 @@ const CartDeleteButton = () => {
       await deleteCart();
       setLoading(false);
       // Optionally, you can perform any additional actions after cart deletion, such as refreshing the page or updating state.
+      fetchCartItems(); // Fetch cart items after deletion
     } catch (error) {
       console.error('Error deleting cart:', error);
+      setError(error.message);
       setLoading(false);
     }
   };
+
+  
 
   return (
     <div className='button-container'>

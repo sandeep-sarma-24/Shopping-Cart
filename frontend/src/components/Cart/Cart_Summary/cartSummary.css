@@ -35,6 +35,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-height: 30px;
 }
 
 .cart-item-details span {
@@ -49,4 +50,19 @@
   font-size: 18px;
   color: black;
 
+}
+
+/* Style for delete button */
+.cart-item-details button {
+  background-color: #ff6347; /* Red */
+  color: white;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  display: flex;
+  cursor: pointer;
+  max-width: 35px;
+  max-height: 35px;
+  margin: 0px 13px;
 }
