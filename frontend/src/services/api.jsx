@@ -214,3 +214,26 @@ export const deleteCart = async () => {
     throw error;
   }
 };
+
+// Function to make DELETE request to delete cart item endpoint
+export const deleteCartItem = async (itemId) => {
+  try {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      throw new Error('Authentication token not found');
+    }
+    console.log('Deleting cart item:', itemId);
+
+    const response = await fetch(`${BASE_URL}/carts/items/${itemId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `${token}`, 
+      },
+    });
+
+    return handleErrors(response);
+  } catch (error) {
+    console.error('Error deleting cart item:', error);
+    throw error;
+  }
+};

@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import './cartSummary.css';
-import { getCartItems } from '../../../services/api';
+import { getCartItems, deleteCartItem } from '../../../services/api';
+import CartDeleteButton from '../Cart_Delete/CartDeleteButton';
 
 const CartSummary = () => {
   const [cartItems, setCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0); // State to hold total price
+  const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -16,12 +17,23 @@ const CartSummary = () => {
     try {
       const response = await getCartItems();
       setCartItems(response.cartItems);
-      setTotalPrice(response.totalPrice); // Set total price from response
+      setTotalPrice(response.totalPrice);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching cart items:', error);
       setError(error.message);
       setLoading(false);
+    }
+  };
+
+  const handleDeleteItem = async (itemId) => {
+    try {
+      await deleteCartItem(itemId);
+      // Refetch cart items after deletion
+      fetchCartItems();
+    } catch (error) {
+      console.error('Error deleting cart item:', error);
+      setError(error.message);
     }
   };
 
@@ -42,6 +54,7 @@ const CartSummary = () => {
                   <span>Quantity</span>
                   <span>Item Price</span>
                   <span>Total Price</span>
+                  <span>Action</span> {/* Add Action column */}
                 </div>
               </div>
               {cartItems.length > 0 ? (
@@ -52,6 +65,7 @@ const CartSummary = () => {
                       <span>{item.Quantity}</span>
                       <span>${item.Item.Price}</span>
                       <span>${item.Item.Price * item.Quantity}</span>
+                      <button onClick={() => handleDeleteItem(item.Item.ID)}>-</button> {/* Delete button */}
                     </div>
                   </div>
                 ))
@@ -60,6 +74,9 @@ const CartSummary = () => {
               )}
             </div>
             <div className="total-price">Total Price: ${totalPrice.toFixed(2)}</div>
+            <div>
+              <CartDeleteButton fetchCartItems={fetchCartItems} setError={setError} />
+            </div>
           </>
         )}
       </div>
